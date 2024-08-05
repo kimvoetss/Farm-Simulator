@@ -60,5 +60,16 @@ public class PlayerInteraction : MonoBehaviour
         land.Select(true);
     }
 
+    //Triggered when the player presses the tool button
+    public void Interact()
+    {
+        //Check if the player is selecting any land
+        if (selectedLand != null)
+        {
+            selectedLand.Interact();
+            return;
+        }
 
+        Debug.Log("Not on any land!");
+    }
 }
