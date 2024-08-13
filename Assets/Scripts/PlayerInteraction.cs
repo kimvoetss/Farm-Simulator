@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-  
+    PlayerController playerController;
+
     //The land the player is currently selecting
-    Land selectedLand = null; 
+    Land selectedLand = null;
+
+    //The interactable object the player is currently selecting
+    InteractableObject selectedInteractable = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Get access to our PlayerController component
+        playerController = transform.parent.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        RaycastHit hit; 
-        if(Physics.Raycast(transform.position, Vector3.down,out hit,  1))
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1))
         {
             OnInteractableHit(hit);
         }
@@ -28,18 +33,32 @@ public class PlayerInteraction : MonoBehaviour
     void OnInteractableHit(RaycastHit hit)
     {
         Collider other = hit.collider;
-        
+
         //Check if the player is going to interact with land
-        if(other.tag == "Land")
+        if (other.tag == "Land")
         {
             //Get the land component
             Land land = other.GetComponent<Land>();
             SelectLand(land);
-            return; 
+            return;
+        }
+
+        //Check if the player is going to interact with an Item
+        if (other.tag == "Item")
+        {
+            //Set the interactable to the currently selected interactable
+            selectedInteractable = other.GetComponent<InteractableObject>();
+            return;
+        }
+
+        //Deselect the interactable if the player is not standing on anything at the moment
+        if (selectedInteractable != null)
+        {
+            selectedInteractable = null;
         }
 
         //Deselect the land if the player is not standing on any land at the moment
-        if(selectedLand != null)
+        if (selectedLand != null)
         {
             selectedLand.Select(false);
             selectedLand = null;
@@ -54,15 +73,21 @@ public class PlayerInteraction : MonoBehaviour
         {
             selectedLand.Select(false);
         }
-        
+
         //Set the new selected land to the land we're selecting now. 
-        selectedLand = land; 
+        selectedLand = land;
         land.Select(true);
     }
 
     //Triggered when the player presses the tool button
     public void Interact()
     {
+        //The player shouldn't be able to use his tool when he has his hands full with an item
+        if (InventoryManager.Instance.SlotEquipped(InventorySlots.InventoryType.Item))
+        {
+            return;
+        }
+
         //Check if the player is selecting any land
         if (selectedLand != null)
         {
@@ -71,5 +96,26 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         Debug.Log("Not on any land!");
+    }
+
+    //Triggered when the player presses the item interact button
+    public void ItemInteract()
+    {
+        //If the player is holding something, keep it in his inventory
+        if (InventoryManager.Instance.SlotEquipped(InventorySlots.InventoryType.Item))
+        {
+            InventoryManager.Instance.HandToInventory(InventorySlots.InventoryType.Item);
+            return;
+        }
+
+        //If the player isn't holding anything, pick up an item
+
+        //Check if there is an interactable selected
+        if (selectedInteractable != null)
+        {
+            //Pick it up
+            selectedInteractable.Pickup();
+        }
+
     }
 }

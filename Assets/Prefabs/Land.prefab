@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6595624457397662245}
   - component: {fileID: 2241324378138711838}
   - component: {fileID: 7673391534967060}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Select
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,9 +96,10 @@ GameObject:
   - component: {fileID: 8565960007389529344}
   - component: {fileID: 1795426857817251880}
   - component: {fileID: 380818657765341921}
+  - component: {fileID: 479872096692237926}
   m_Layer: 0
   m_Name: Land
-  m_TagString: Untagged
+  m_TagString: Land
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,7 +113,7 @@ Transform:
   m_GameObject: {fileID: 928591517488090642}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -207,3 +208,18 @@ MonoBehaviour:
   farmlandMat: {fileID: 2100000, guid: 3f97ed896359c204d969822033615339, type: 2}
   wateredMat: {fileID: 2100000, guid: 11d4759c454b2704497a2ccff0e120dc, type: 2}
   select: {fileID: 564620026048571897}
+  cropPrefab: {fileID: 637497163756844345, guid: d937e261c9cb4bb4faf334dff9fcde49, type: 3}
+--- !u!114 &479872096692237926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928591517488090642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c457f8fd5a185a14bbdc0b2ebe7cbdd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectInThisGridSpace: {fileID: 0}
+  isOccupied: 0

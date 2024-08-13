@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: 
   thumbnail: {fileID: 1298204616, guid: f347c73f7058822469dbd60276f40ca0, type: 3}
-  gameModel: {fileID: 0}
+  gameModel: {fileID: 2192582240671759197, guid: 36339a87f8717da4cad4baef714fe8c8, type: 3}
